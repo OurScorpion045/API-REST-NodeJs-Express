@@ -1,0 +1,31 @@
+{
+  "name": "api-rest-nodejs-express",
+  "version": "1.0.0",
+  "description": "API-REST written with Nodejs + MySQL using the following dependencies: Express, Bcrypt, Jest, Supertest",
+  "keywords": [
+    "API-REST",
+    "Node-js",
+    "Express"
+  ],
+  "homepage": "https://github.com/OurScorpion045/API-REST-NodeJs-Express#readme",
+  "bugs": {
+    "url": "https://github.com/OurScorpion045/API-REST-NodeJs-Express/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OurScorpion045/API-REST-NodeJs-Express.git"
+  },
+  "license": "MIT",
+  "author": "OurScorpion045 -- Mario Alejandro Hernandez Lopez",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
+}
