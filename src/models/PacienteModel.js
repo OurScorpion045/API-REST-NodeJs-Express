@@ -15,6 +15,20 @@ export class PacienteModel {
     }
 
     static async insert(pacienteData) {
-        const sql = "INSERT INTO `pacientes`()"
+        const sql = "INSERT INTO `pacientes`(`DNI`, `Nombre`, `Direccion`, `CodigoPostal`, `Telefono`, `Genero`, `FechaNacimiento`, `Correo`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        const [rows, fields] = await pool.execute(sql, pacienteData);
+        return rows;
+    }
+
+    static async update(pacienteData) {
+        const sql = "UPDATE `pacientes` SET `DNI` = ?, `Nombre` = ?, `Direccion` = ?, `CodigoPostal` = ?, `Telefono` = ?, `Genero` = ?, `FechaNacimiento` = ?, `Correo` = ? WHERE `PacienteId` = ?";
+        const [rows, fields] = await pool.execute(sql, pacienteData);
+        return rows;
+    }
+
+    static async delete(pacienteData) {
+        const sql = "DELETE FROM `pacientes` WHERE `PacienteId` = ?";
+        const [rows, fields] = await pool.execute(sql, pacienteData);
+        return rows;
     }
 }
