@@ -1,7 +1,7 @@
 import { PacienteController } from "../controllers/PacienteController.js";
+import { express } from "express";
 
-const express = require("express");
-const router = express.Router();
+export const router = express.Router();
 
 router.get("/pacientes", (req, res) => {
     await PacienteController.getAll();
