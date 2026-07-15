@@ -27,14 +27,14 @@ export class PacienteController {
     static async insert(req, res) {
         try {
             let data = [
-                req.params.DNI,
-                req.params.Nombre,
-                req.params.Direccion,
-                req.params.CodigoPostal,
-                req.params.Telefono,
-                req.params.Genero,
-                req.params.FechaNacimiento,
-                req.params.Correo
+                req.body.DNI,
+                req.body.Nombre,
+                req.body.Direccion,
+                req.body.CodigoPostal,
+                req.body.Telefono,
+                req.body.Genero,
+                req.body.FechaNacimiento,
+                req.body.Correo
             ]
             let results = await PacienteModel.insert(data);
             if (results.affectedRows > 0) {
@@ -51,14 +51,14 @@ export class PacienteController {
     static async update(req, res) {
         try {
             let data = [
-                req.params.DNI,
-                req.params.Nombre,
-                req.params.Direccion,
-                req.params.CodigoPostal,
-                req.params.Telefono,
-                req.params.Genero,
-                req.params.FechaNacimiento,
-                req.params.Correo,
+                req.body.DNI,
+                req.body.Nombre,
+                req.body.Direccion,
+                req.body.CodigoPostal,
+                req.body.Telefono,
+                req.body.Genero,
+                req.body.FechaNacimiento,
+                req.body.Correo,
                 req.params.id
             ]
             let results = await PacienteModel.update(data);
