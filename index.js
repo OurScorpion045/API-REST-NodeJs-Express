@@ -5,6 +5,7 @@ import { pacientesRouter } from "./src/routes/PacienteRoute.js";
 dotenv.config();
 
 const app = express();
+app.use(express.json());
 app.use(pacientesRouter);
 
 const PORT = process.env.PORT ?? 3000;
