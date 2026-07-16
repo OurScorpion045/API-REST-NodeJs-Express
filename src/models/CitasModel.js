@@ -9,7 +9,7 @@ export class CitasModel {
     }
 
     static async getById(citasData) {
-        const sql = "SELECT * FROM `citas` WHERE `CitaId` LIMIT 1";
+        const sql = "SELECT * FROM `citas` WHERE `CitaId` = ? LIMIT 1";
         const [rows, fields] = await pool.execute(sql, citasData);
         return rows;
     }
