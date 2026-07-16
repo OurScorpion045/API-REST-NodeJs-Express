@@ -1,6 +1,6 @@
 import { CitasModel } from "../models/CitasModel.js";
 
-class CitasController {
+export class CitasController {
 
     static async getAll(req, res) {
         try {
