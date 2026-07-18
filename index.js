@@ -1,5 +1,4 @@
 import express from "express";
-import dotenv from "dotenv";
 import { pacientesRouter } from "./src/routes/PacienteRoute.js";
 import { citasRouter } from "./src/routes/CitasRoute.js";
 import { usuarioRouter } from "./src/routes/UsuarioRoute.js";
