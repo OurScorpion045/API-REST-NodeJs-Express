@@ -7,7 +7,7 @@ export class PacienteController {
             let results = await PacienteModel.getAll();
             res.json(results);
         } catch (err) {
-            res.json({"message": "Error al seleccionar pacientes"});
+            res.status(500).json({"message": "Error al seleccionar pacientes"});
             console.error(err);
         }
 
@@ -19,7 +19,7 @@ export class PacienteController {
             let results = await PacienteModel.getById(data);
             res.json(results);
         } catch (err) {
-            res.json({"message": "Error al seleccionar paciente"});
+            res.status(500).json({"message": "Error al seleccionar paciente"});
             console.error(err);
         }
     }
@@ -43,7 +43,7 @@ export class PacienteController {
                 throw new Error(err);
             }
         } catch (err) {
-            res.json({"message": "Error al insertar paciente"});
+            res.status(500).json({"message": "Error al insertar paciente"});
             console.error(err);
         }
     }
@@ -68,7 +68,7 @@ export class PacienteController {
                 throw new Error(err);
             }
         } catch (err) {
-            res.json({"message": "Error al actualizar paciente"});
+            res.status(500).json({"message": "Error al actualizar paciente"});
             console.error(err);
         }
     }
@@ -83,7 +83,7 @@ export class PacienteController {
                 throw new Error(err);
             }
         } catch (err) {
-            res.json({"message": "Error al eliminar paciente"});
+            res.status(500).json({"message": "Error al eliminar paciente"});
             console.error(err);
         }
     }
