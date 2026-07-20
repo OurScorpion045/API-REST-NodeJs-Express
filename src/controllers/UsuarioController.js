@@ -53,7 +53,7 @@ export class UsuarioController {
                 req.body.Estado,
                 req.params.id
             ];
-            const results = await UsuarioModel.update(data);
+            const results = await UsuarioModel.update(data);    
             if (results.affectedRows > 0) {
                 res.json({"message": "Usuario actualizado correctamente"});
             } else {
