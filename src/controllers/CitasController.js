@@ -7,7 +7,7 @@ export class CitasController {
             const results = await CitasModel.getAll();
             res.json(results);
         } catch (err) {
-            res.json({"message": "Error al seleccionar citas"});
+            res.status(500).json({"message": "Error al seleccionar citas"});
             console.error(err);
         }
     }
@@ -18,7 +18,7 @@ export class CitasController {
             const results = await CitasModel.getById(data);
             res.json(results);
         } catch (err) {
-            res.json({"message": "Error al seleccionar cita"});
+            res.status(500).json({"message": "Error al seleccionar cita"});
             console.error(err);
         }
     }
@@ -40,7 +40,7 @@ export class CitasController {
                 throw new Error(err);
             }
         } catch (err) {
-            res.json({"message": "Error al insertar cita"});
+            res.status(500).json({"message": "Error al insertar cita"});
             console.error(err);
         }
     }
@@ -63,7 +63,7 @@ export class CitasController {
                 throw new Error(err);
             }
         } catch (err) {
-            res.json({"message": "Error al actualizar cita"});
+            res.status(500).json({"message": "Error al actualizar cita"});
             console.error(err);
         }
     }
@@ -78,7 +78,7 @@ export class CitasController {
                 throw new Error(err);
             }
         } catch (err) {
-            res.json({"message": "Error al eliminar cita"});
+            res.status(500).json({"message": "Error al eliminar cita"});
             console.error(err);
         }
     }
