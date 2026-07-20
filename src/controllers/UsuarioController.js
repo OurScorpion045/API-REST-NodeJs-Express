@@ -8,7 +8,7 @@ export class UsuarioController {
             const results = await UsuarioModel.getAll();
             res.json(results);
         } catch (err) {
-            res.json({"message": "Error al seleccionar usuarios"});
+            res.status(500).json({"message": "Error al seleccionar usuarios"});
             console.error(err);
         }
     }
@@ -19,7 +19,7 @@ export class UsuarioController {
             const results = await UsuarioModel.getById(data);
             res.json(results);
         } catch (err) {
-            res.json({"message": "Error al seleccionar usuario"});
+            res.status(500).json({"message": "Error al seleccionar usuario"});
             console.error(err);
         }
     }
@@ -39,7 +39,7 @@ export class UsuarioController {
                 throw new Error(err);
             }
         } catch (err) {
-            res.json({"message": "Error al insertar usuario"});
+            res.status(500).json({"message": "Error al insertar usuario"});
             console.error(err);
         }
     }
@@ -60,7 +60,7 @@ export class UsuarioController {
                 throw new Error(err);
             }
         } catch (err) {
-            res.json({"message": "Error al actualizar usuario"});
+            res.status(500).json({"message": "Error al actualizar usuario"});
             console.error(err);
         }
     }
@@ -75,7 +75,7 @@ export class UsuarioController {
                 throw new Error(err);
             }
         } catch (err) {
-            res.json({"message": "Error al eliminar usuario"});
+            res.status(500).json({"message": "Error al eliminar usuario"});
             console.error(err);
         }
     }
