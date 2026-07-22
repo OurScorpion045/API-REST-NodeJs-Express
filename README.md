@@ -13,3 +13,11 @@ API-REST written in nodejs using the following dependencies: Express, Bcrypt, Je
 - Environment variables
 - API RESTful
 - Git
+
+## Instalation
+
+git clone https://github.com/OurScorpion045/API-REST-NodeJs-Express
+
+cd API-REST-NodeJs-Express
+
+npm install
