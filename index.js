@@ -3,7 +3,7 @@ import { pacientesRouter } from "./src/routes/PacienteRoute.js";
 import { citasRouter } from "./src/routes/CitasRoute.js";
 import { usuarioRouter } from "./src/routes/UsuarioRoute.js";
 
-const app = express();
+export const app = express();
 app.use(express.json());
 app.use(pacientesRouter);
 app.use(citasRouter);
