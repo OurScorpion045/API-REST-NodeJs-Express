@@ -1,13 +1,4 @@
-import express from "express";
-import { pacientesRouter } from "./src/routes/PacienteRoute.js";
-import { citasRouter } from "./src/routes/CitasRoute.js";
-import { usuarioRouter } from "./src/routes/UsuarioRoute.js";
-
-export const app = express();
-app.use(express.json());
-app.use(pacientesRouter);
-app.use(citasRouter);
-app.use(usuarioRouter);
+import { app } from "./src/app.js";
 
 const PORT = process.env.PORT ?? 3000;
 
