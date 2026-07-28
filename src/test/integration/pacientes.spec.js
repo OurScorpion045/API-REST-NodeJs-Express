@@ -21,7 +21,16 @@ describe('GET /pacientes', () => {
 describe('POST /pacientes', () => {
     
     test('Should respond with a 200 status code and a message in JSON about the patient was inserted correctly', async() => {
-        const response = await supertest(app).post('/pacientes').send()
+        const response = await supertest(app).post('/pacientes').send({
+            "DNI": "F000000012",
+            "Nombre": "Martin Lopez",
+            "Direccion": "Calle de pruebas 12",
+            "CodigoPostal": "20012",
+            "Telefono": "623281567",
+            "Genero": "H",
+            "FechaNacimiento": "1987-11-30",
+            "Correo": "Paciente12@gmail.com"
+        })
         expect(response.statusCode).toBe(200);
         expect(response.type).toMatch(/json/);
         expect(Array.isArray(response.body)).toBe(true);
@@ -34,7 +43,7 @@ describe('PUT /pacientes/:id', () => {
         const response = await supertest(app).put('/pacientes/:id').send()
         expect(response.statusCode).toBe(200);
         expect(response.type).toMatch(/json/);
-        expect(Array.isArray(response.body)).toBe(true);
+        expect(response.body).toMatch(/message/);
     });
 });
 
@@ -44,6 +53,6 @@ describe('DELETE /pacientes/:id', () => {
         const response = await supertest(app).delete('/pacientes/:id').send()
         expect(response.statusCode).toBe(200);
         expect(response.type).toMatch(/json/);
-        expect(Array.isArray(response.body)).toBe(true);
+        expect(response.body).toMatch(/message/);
     })
 })
