@@ -11,7 +11,7 @@ describe('GET /pacientes', () => {
     });
 
     test('Should respond with a 200 status code and the JSON patient data register by the id', async() => {
-        const response = await supertest(app).get('/pacientes/:id').send()
+        const response = await supertest(app).get('/pacientes/1').send()
         expect(response.statusCode).toBe(200);
         expect(response.type).toMatch(/json/);
         expect(Array.isArray(response.body)).toBe(true);
