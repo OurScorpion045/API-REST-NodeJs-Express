@@ -1,17 +1,19 @@
 import supertest from "supertest";
 import { app } from "../../app.js"
 
+let id = null;
+
 describe('GET /pacientes', () => {
 
     test('Should respond with a 200 status code and the JSON patients data', async () => {
-        const response = await supertest(app).get('/pacientes').send()
+        const response = await supertest(app).get('/pacientes');
         expect(response.statusCode).toBe(200);
         expect(response.type).toMatch(/json/);
         expect(Array.isArray(response.body)).toBe(true);
     });
 
     test('Should respond with a 200 status code and the JSON patient data register by the id', async() => {
-        const response = await supertest(app).get('/pacientes/1').send()
+        const response = await supertest(app).get('/pacientes/1');
         expect(response.statusCode).toBe(200);
         expect(response.type).toMatch(/json/);
         expect(Array.isArray(response.body)).toBe(true);
