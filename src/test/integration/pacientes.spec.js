@@ -5,6 +5,7 @@ import { pool } from "../../config/Database.js";
 beforeAll(async () => {
     await pool.execute("DELETE FROM `pacientes`");
     await pool.execute("ALTER TABLE `pacientes` AUTO_INCREMENT = 1");
+    await pool.execute("INSERT INTO `pacientes`(`DNI`, `Nombre`, `Direccion`, `CodigoPostal`, `Telefono`, `Genero`, `FechaNacimiento`, `Correo`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", ["F000000012", "Jon Doe", "Calle de pruebas 1", "20001", "1234567890", "H", "2001-01-01", "Paciente01@gmail.com"]);
 })
 
 afterAll(async () => {
@@ -26,24 +27,7 @@ describe('POST /pacientes', () => {
         })
         expect(response.statusCode).toBe(200);
         expect(response.type).toMatch(/json/);
-    });
-});
-
-describe(`PUT /pacientes/1`, () => {
-
-    test('Should respond with a 200 status code and a message in JSON about the patient was updated correctly', async() => {
-        const response = await supertest(app).put('/pacientes/1').send({
-            DNI: "F000000013",
-            Nombre: "Martin Lopez",
-            Direccion: "Calle de pruebas 12",
-            CodigoPostal: "20012",
-            Telefono: "623281567",
-            Genero: "H",
-            FechaNacimiento: "1987-11-30",
-            Correo: "Paciente12@gmail.com"
-        })
-        expect(response.statusCode).toBe(200);
-        expect(response.type).toMatch(/json/);
+        expect(response.body.message).toMatch(/Paciente insertado correctamente/);
     });
 });
 
@@ -64,11 +48,31 @@ describe('GET /pacientes', () => {
     });
 });
 
+describe(`PUT /pacientes/1`, () => {
+
+    test('Should respond with a 200 status code and a message in JSON about the patient was updated correctly', async() => {
+        const response = await supertest(app).put('/pacientes/1').send({
+            DNI: "F000000013",
+            Nombre: "Martin Lopez",
+            Direccion: "Calle de pruebas 12",
+            CodigoPostal: "20012",
+            Telefono: "623281567",
+            Genero: "H",
+            FechaNacimiento: "1987-11-30",
+            Correo: "Paciente12@gmail.com"
+        })
+        expect(response.statusCode).toBe(200);
+        expect(response.type).toMatch(/json/);
+        expect(response.body.message).toMatch(/Paciente actualizado correctamente/);
+    });
+});
+
 describe(`DELETE /pacientes/1`, () => {
 
     test('Should respond with a 200 status code and a message in JSON about the patient was deleted correctly', async() => {
         const response = await supertest(app).delete('/pacientes/1').send()
         expect(response.statusCode).toBe(200);
         expect(response.type).toMatch(/json/);
+        expect(response.body.message).toMatch(/Paciente eliminado correctamente/);
     })
 })
