@@ -2,12 +2,18 @@ import supertest from "supertest";
 import { app } from "../../app.js"
 import { pool } from "../../config/Database.js";
 
+beforeAll(async () => {
+    await pool.execute("DELETE FROM `pacientes`");
+    await pool.execute("ALTER TABLE `pacientes` AUTO_INCREMENT = 1");
+})
+
+afterAll(async () => {
+    await pool.end();
+});
 
 describe('POST /pacientes', () => {
     
     test('Should respond with a 200 status code and a message in JSON about the patient was inserted correctly', async() => {
-        await pool.execute("DELETE FROM `pacientes`");
-        await pool.execute("ALTER TABLE `pacientes` AUTO_INCREMENT = 1");
         const response = await supertest(app).post('/pacientes').send({
             DNI: "F000000012",
             Nombre: "Martin Lopez",
