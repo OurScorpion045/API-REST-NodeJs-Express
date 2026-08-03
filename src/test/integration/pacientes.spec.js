@@ -12,10 +12,12 @@ afterAll(async () => {
     await pool.end();
 });
 
+const request = supertest(app);
+
 describe('POST /pacientes', () => {
     
     test('Should respond with a 200 status code and a message in JSON about the patient was inserted correctly', async() => {
-        const response = await supertest(app).post('/pacientes').send({
+        const response = await request.post('/pacientes').send({
             DNI: "F000000012",
             Nombre: "Martin Lopez",
             Direccion: "Calle de pruebas",
@@ -26,15 +28,15 @@ describe('POST /pacientes', () => {
             Correo: "Paciente@gmail.com"
         })
         expect(response.statusCode).toBe(200);
-        expect(response.type).toMatch(/json/);
-        expect(response.body.message).toMatch(/Paciente insertado correctamente/);
+        expect(response.type).toBe(/json/);
+        expect(response.body.message).toBe("Paciente insertado correctamente");
     });
 });
 
 describe('GET /pacientes', () => {
 
     test('Should respond with a 200 status code and the JSON patients data', async () => {
-        const response = await supertest(app).get('/pacientes');
+        const response = await request.get('/pacientes');
         expect(response.statusCode).toBe(200);
         expect(response.type).toMatch(/json/);
         expect(Array.isArray(response.body)).toBe(true);
@@ -42,7 +44,7 @@ describe('GET /pacientes', () => {
     });
 
     test('Should respond with a 200 status code and the JSON patient data register by the id', async() => {
-        const response = await supertest(app).get('/pacientes/1');
+        const response = await request.get('/pacientes/1');
         expect(response.statusCode).toBe(200);
         expect(response.type).toMatch(/json/);
         expect(Array.isArray(response.body)).toBe(true);
@@ -50,10 +52,10 @@ describe('GET /pacientes', () => {
     });
 });
 
-describe(`PUT /pacientes/1`, () => {
+describe(`PUT /pacientes/:id`, () => {
 
     test('Should respond with a 200 status code and a message in JSON about the patient was updated correctly', async() => {
-        const response = await supertest(app).put('/pacientes/1').send({
+        const response = await request.put('/pacientes/1').send({
             DNI: "F000000013",
             Nombre: "Martin Lopez",
             Direccion: "Calle de pruebas 12",
@@ -65,16 +67,16 @@ describe(`PUT /pacientes/1`, () => {
         })
         expect(response.statusCode).toBe(200);
         expect(response.type).toMatch(/json/);
-        expect(response.body.message).toMatch(/Paciente actualizado correctamente/);
+        expect(response.body.message).toBe("Paciente actualizado correctamente");
     });
 });
 
-describe(`DELETE /pacientes/1`, () => {
+describe(`DELETE /pacientes/:id`, () => {
 
     test('Should respond with a 200 status code and a message in JSON about the patient was deleted correctly', async() => {
-        const response = await supertest(app).delete('/pacientes/1').send()
+        const response = await request.delete('/pacientes/1').send()
         expect(response.statusCode).toBe(200);
         expect(response.type).toMatch(/json/);
-        expect(response.body.message).toMatch(/Paciente eliminado correctamente/);
-    })
-})
+        expect(response.body.message).toBe("Paciente eliminado correctamente");
+    });
+});
