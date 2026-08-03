@@ -38,6 +38,7 @@ describe('GET /pacientes', () => {
         expect(response.statusCode).toBe(200);
         expect(response.type).toMatch(/json/);
         expect(Array.isArray(response.body)).toBe(true);
+        expect(response.body.length).toBeGreaterThan(0);
     });
 
     test('Should respond with a 200 status code and the JSON patient data register by the id', async() => {
@@ -45,6 +46,7 @@ describe('GET /pacientes', () => {
         expect(response.statusCode).toBe(200);
         expect(response.type).toMatch(/json/);
         expect(Array.isArray(response.body)).toBe(true);
+        expect(response.body.length).toBeGreaterThan(0);
     });
 });
 
