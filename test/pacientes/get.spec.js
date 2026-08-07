@@ -1,9 +1,9 @@
 import supertest from "supertest";
 import { app } from "../../src/app.js";
-import { resetDatabase } from "../helpers/resetDatabase.js";
+import { resetPacientes } from "../helpers/resetPacientes.js";
 import { closeConnection } from "../helpers/closeConnection.js";
 
-beforeEach(resetDatabase);
+beforeEach(resetPacientes);
 afterAll(closeConnection);
 
 const request = supertest(app);
