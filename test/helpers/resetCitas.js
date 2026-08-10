@@ -1,4 +1,4 @@
-import { pool } from "../../src/config/Database";
+import { pool } from "../../src/config/Database.js";
 import { citaArray } from "../fixtures/cita.js";
 
 export const resetCitas = async () => {
