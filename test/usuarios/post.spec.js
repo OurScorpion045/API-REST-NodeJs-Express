@@ -2,7 +2,7 @@ import supertest from "supertest";
 import { app } from "../../src/app.js";
 import { resetUsuarios } from "../helpers/resetUsuarios.js";
 import { closeConnection } from "../helpers/closeConnection.js";
-import { usuarioJson } from "../fixtures/usuario";
+import { usuarioJson } from "../fixtures/usuario.js";
 
 const request = supertest(app);
 
