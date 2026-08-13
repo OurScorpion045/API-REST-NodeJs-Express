@@ -12,9 +12,9 @@ afterAll(closeConnection);
 
 describe("POST /usuarios/", () => {
 
-    test("Should return a 200 status code and a json message which says 'Usuario insertado correctamente'", async () => {
+    test("Should return a 201 status code and a json message which says 'Usuario insertado correctamente'", async () => {
         const response = await request.post("/usuarios").send(usuarioJson);
-        expect(response.statusCode).toBe(200);
+        expect(response.statusCode).toBe(201);
         expect(response.type).toMatch(/json/);
         expect(response.body.message).toBe("Usuario insertado correctamente");
     })
