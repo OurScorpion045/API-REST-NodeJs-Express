@@ -12,9 +12,9 @@ afterAll(closeConnection);
 
 describe("POST /citas", () => {
 
-    test("Should return a 200 status code and a json message which says 'cita insertada correctamente'", async () => {
+    test("Should return a 201 status code and a json message which says 'cita insertada correctamente'", async () => {
         const response = await request.post("/citas").send(citaJson);
-        expect(response.statusCode).toBe(200);
+        expect(response.statusCode).toBe(201);
         expect(response.body.message).toBe("Cita insertada correctamente");
         expect(response.type).toMatch(/json/);
     });
