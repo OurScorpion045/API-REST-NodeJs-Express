@@ -37,13 +37,14 @@ export class CitasController {
                 req.body.Estado,
                 req.body.Motivo
             ];
-            const results = await CitasModel.insert(data);
-            if (req.body.PacienteId == null || req.body.Fecha == null || req.body.HoraInicio == null || req.body.HoraFin == null || req.body.Estado == null || req.body.Motivo == null) {
+            if (req.body.PacienteId == '' || req.body.Fecha == '' || req.body.HoraInicio == '' || req.body.HoraFin == '' || req.body.Estado == '' || req.body.Motivo == '') {
                 res.status(400).json({"message": "Campos obligatorios vacios"});
-            } else if (results.affectedRows > 0) {
+            }
+            
+            const results = await CitasModel.insert(data);
+            
+            if (results.affectedRows > 0) {
                 res.status(201).json({"message": "Cita insertada correctamente"});
-            } else {
-                throw new Error(err);
             }
         } catch (err) {
             res.status(500).json({"message": "Error al insertar cita"});
@@ -62,15 +63,16 @@ export class CitasController {
                 req.body.Motivo,
                 req.params.id
             ];
-            const results = await CitasModel.update(data);
-            if (req.body.PacienteId == null || req.body.Fecha == null || req.body.HoraInicio == null || req.body.HoraFin == null || req.body.Estado == null || req.body.Motivo == null) {
+            if (req.body.PacienteId == '' || req.body.Fecha == '' || req.body.HoraInicio == '' || req.body.HoraFin == '' || req.body.Estado == '' || req.body.Motivo == '') {
                 res.status(400).json({"message": "Campos obligatorios vacios"});
-            } else if (results.affectedRows == 0) {
+            } 
+            
+            const results = await CitasModel.update(data);
+            
+            if (results.affectedRows == 0) {
                 res.status(404).json({"message": "Cita no encontrada"});
             } else if (results.affectedRows > 0) {
                 res.status(200).json({"message": "Cita actualizada correctamente"});
-            } else {
-                throw new Error(err);
             }
         } catch (err) {
             res.status(500).json({"message": "Error al actualizar cita"});
@@ -86,8 +88,6 @@ export class CitasController {
                 res.status(404).json({"message": "Cita no encontrada"});
             } else if (results.affectedRows > 0) {
                 res.status(204).send();
-            } else {
-                throw new Error(err);
             }
         } catch (err) {
             res.status(500).json({"message": "Error al eliminar cita"});
