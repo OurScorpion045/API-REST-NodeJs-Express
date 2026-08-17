@@ -3,13 +3,13 @@ import { pool } from "../config/Database.js";
 export class UsuarioModel {
 
     static async getAll() {
-        const sql = "SELECT * FROM `usuarios` ORDER BY `UsuarioId` DESC";
+        const sql = "SELECT `Usuario`, `Estado` FROM `usuarios` ORDER BY `UsuarioId` DESC";
         const [rows, fields] = await pool.execute(sql);
         return rows;
     }
 
     static async getById(usuarioData) {
-        const sql = "SELECT * FROM `usuarios` WHERE `UsuarioId` = ? LIMIT 1";
+        const sql = "SELECT `Usuario`, `Estado` FROM `usuarios` WHERE `UsuarioId` = ? LIMIT 1";
         const [rows, fields] = await pool.execute(sql, usuarioData);
         return rows;
     }
