@@ -1,5 +1,6 @@
 import { PacienteController } from "../controllers/PacienteController.js";
 import express from "express";
+import { validatePaciente } from "../middleware/validation/validatePaciente.js";
 
 export const pacientesRouter = express.Router();
 
@@ -11,11 +12,11 @@ pacientesRouter.get("/pacientes/:id", async (req, res) => {
     await PacienteController.getById(req, res);
 });
 
-pacientesRouter.post("/pacientes", async (req, res) => {
+pacientesRouter.post("/pacientes", validatePaciente, async (req, res) => {
     await PacienteController.insert(req, res);
 });
 
-pacientesRouter.put("/pacientes/:id", async (req, res) => {
+pacientesRouter.put("/pacientes/:id", validatePaciente, async (req, res) => {
     await PacienteController.update(req, res);
 });
 
