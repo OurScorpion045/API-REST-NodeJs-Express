@@ -1,4 +1,3 @@
-import { json } from "express";
 import { UsuarioModel } from "../models/UsuarioModel.js";
 import bcrypt from "bcrypt";
 
@@ -38,10 +37,7 @@ export class UsuarioController {
                 hashPassword,
                 req.body.Estado
             ];
-            if (req.body.Usuario == '' || hashPassword == '' || req.body.Estado == '') {
-                res.status(400).json({"message": "Campos obligatorios vacios"});
-            }
-            
+
             const results = await UsuarioModel.insert(data);
             
             if (results.affectedRows > 0) {
@@ -62,10 +58,7 @@ export class UsuarioController {
                 req.body.Estado,
                 req.params.id
             ];
-            if (req.body.Usuario == '' || hashPassword == '' || req.body.Estado == '') {
-                res.status(400).json({"message": "Campos obligatorios vacios"});
-            } 
-            
+
             const results = await UsuarioModel.update(data);
             
             if (results.affectedRows == 0) {
