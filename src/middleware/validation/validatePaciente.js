@@ -6,7 +6,7 @@ export const validatePaciente = (req, res, next) => {
     if (!validate.success) {
         return res.status(400).json({
             error: "Datos invalidos",
-            detalles: validate.error.issues
+            details: validate.error.issues
         });
     }
 
