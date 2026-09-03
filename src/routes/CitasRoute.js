@@ -1,4 +1,5 @@
 import { CitasController } from "../controllers/CitasController.js";
+import { validateCita } from "../middleware/validation/validateCita.js";
 import express from "express";
 
 export const citasRouter = express.Router();
@@ -11,11 +12,11 @@ citasRouter.get("/citas/:id", async (req, res) => {
     await CitasController.getById(req, res);
 });
 
-citasRouter.post("/citas", async (req, res) => {
+citasRouter.post("/citas", validateCita, async (req, res) => {
     await CitasController.insert(req, res);
 });
 
-citasRouter.put("/citas/:id", async (req, res) => {
+citasRouter.put("/citas/:id", validateCita, async (req, res) => {
     await CitasController.update(req, res);
 });
 
