@@ -1,89 +1,69 @@
 import { CitasModel } from "../models/CitasModel.js";
+import { NotFoundError } from "../errors/NotFoundError.js";
 
 export class CitasController {
 
     static async getAll(req, res) {
-        try {
-            const results = await CitasModel.getAll();
-            res.status(200).json(results);
-        } catch (err) {
-            res.status(500).json({"message": "Error al seleccionar citas"});
-            console.error(err);
-        }
+        const results = await CitasModel.getAll();
+        res.status(200).json(results);
     }
 
     static async getById(req, res) {
-        try {
-            const data = [req.params.id];
-            const results = await CitasModel.getById(data);
-            if (JSON.stringify(results) === "[]") {
-                res.status(404).json({"message": "Cita no encontrada"});
-            } else {
-                res.status(200).json(results);
-            }
-        } catch (err) {
-            res.status(500).json({"message": "Error al seleccionar cita"});
-            console.error(err);
+        const data = [req.params.id];
+        const results = await CitasModel.getById(data);
+
+        if (results.length == 0) {
+            throw new NotFoundError("Cita no encontrada");
         }
+        res.status(200).json(results);
     }
 
     static async insert(req, res) {
-        try {
-            const data = [
-                req.body.PacienteId,
-                req.body.Fecha,
-                req.body.HoraInicio,
-                req.body.HoraFin,
-                req.body.Estado,
-                req.body.Motivo
-            ];
-            const results = await CitasModel.insert(data);
-            
-            if (results.affectedRows > 0) {
-                return res.status(201).json({"message": "Cita insertada correctamente"});
-            }
-        } catch (err) {
-            res.status(500).json({"message": "Error al insertar cita"});
-            console.error(err);
+        const data = [
+            req.body.PacienteId,
+            req.body.Fecha,
+            req.body.HoraInicio,
+            req.body.HoraFin,
+            req.body.Estado,
+            req.body.Motivo
+        ];
+        const results = await CitasModel.insert(data);
+        
+        if (results.affectedRows <= 0) {
+            throw new AppError("Error al insertar cita", 500);
         }
+
+        return res.status(201).json({"message": "Cita insertada correctamente"});
+
     }
 
     static async update(req, res) {
-        try {
-            const data = [
-                req.body.PacienteId,
-                req.body.Fecha,
-                req.body.HoraInicio,
-                req.body.HoraFin,
-                req.body.Estado,
-                req.body.Motivo,
-                req.params.id
-            ];
-            const results = await CitasModel.update(data);
-            
-            if (results.affectedRows == 0) {
-                return res.status(404).json({"message": "Cita no encontrada"});
-            } else if (results.affectedRows > 0) {
-                return res.status(200).json({"message": "Cita actualizada correctamente"});
-            }
-        } catch (err) {
-            res.status(500).json({"message": "Error al actualizar cita"});
-            console.error(err);
+        const data = [
+            req.body.PacienteId,
+            req.body.Fecha,
+            req.body.HoraInicio,
+            req.body.HoraFin,
+            req.body.Estado,
+            req.body.Motivo,
+            req.params.id
+        ];
+        const results = await CitasModel.update(data);
+        
+        if (results.affectedRows == 0) {
+            throw new NotFoundError("Cita no encontrada");
         }
+        
+        return res.status(200).json({"message": "Cita actualizada correctamente"});
     }
 
     static async delete(req, res) {
-        try {
-            const data = [req.params.id];
-            const results = await CitasModel.delete(data);
-            if (results.affectedRows == 0) {
-                res.status(404).json({"message": "Cita no encontrada"});
-            } else if (results.affectedRows > 0) {
-                res.status(204).send();
-            }
-        } catch (err) {
-            res.status(500).json({"message": "Error al eliminar cita"});
-            console.error(err);
-        }
+        const data = [req.params.id];
+        const results = await CitasModel.delete(data);
+
+        if (results.affectedRows == 0) {
+            throw new NotFoundError("Cita no encontrada");
+        } 
+        
+        res.status(204).send();
     }
 }
