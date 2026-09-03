@@ -1,90 +1,71 @@
+import { AppError } from "../errors/AppError.js";
+import { NotFoundError } from "../errors/NotFoundError.js";
 import { UsuarioModel } from "../models/UsuarioModel.js";
 import bcrypt from "bcrypt";
 
 export class UsuarioController {
 
     static async getAll(req, res) {
-        try {
-            const results = await UsuarioModel.getAll();
-            res.status(200).json(results);
-        } catch (err) {
-            res.status(500).json({"message": "Error al seleccionar usuarios"});
-            console.error(err);
-        }
+        const results = await UsuarioModel.getAll();
+        res.status(200).json(results);
     }
 
     static async getById(req, res) {
-        try {
-            const data = [req.params.id];
-            const results = await UsuarioModel.getById(data);
+        const data = [req.params.id];
+        const results = await UsuarioModel.getById(data);
 
-            if (JSON.stringify(results) === "[]") {
-                res.status(404).json({"message": "Usuario no encontrado"});
-            } else {
-                res.status(200).json(results);
-            }
-        } catch (err) {
-            res.status(500).json({"message": "Error al seleccionar usuario"});
-            console.error(err);
+        if (results.length == 0) {
+            throw new NotFoundError("Usuario no encontrado");
         }
+        
+        res.status(200).json(results);
     }
 
     static async insert(req, res) {
-        try {
-            const hashPassword = await bcrypt.hash(req.body.Password, 10);
-            const data = [
-                req.body.Usuario,
-                hashPassword,
-                req.body.Estado
-            ];
+        const hashPassword = await bcrypt.hash(req.body.Password, 10);
 
-            const results = await UsuarioModel.insert(data);
-            
-            if (results.affectedRows > 0) {
-                res.status(201).json({"message": "Usuario insertado correctamente"});
-            } 
-        } catch (err) {
-            res.status(500).json({"message": "Error al insertar usuario"});
-            console.error(err);
+        const data = [
+            req.body.Usuario,
+            hashPassword,
+            req.body.Estado
+        ];
+
+        const results = await UsuarioModel.insert(data);
+        
+        if (results.affectedRows == 0) {
+            throw new AppError("Error al insertar Usuario", 500);
         }
+
+        return res.status(201).json({"message": "Usuario insertado correctamente"});
+
     }
 
     static async update(req, res) {
-        try {
-            const hashPassword = await bcrypt.hash(req.body.Password, 10);
-            const data = [
-                req.body.Usuario,
-                hashPassword,
-                req.body.Estado,
-                req.params.id
-            ];
+        const hashPassword = await bcrypt.hash(req.body.Password, 10);
+        const data = [
+            req.body.Usuario,
+            hashPassword,
+            req.body.Estado,
+            req.params.id
+        ];
 
-            const results = await UsuarioModel.update(data);
-            
-            if (results.affectedRows == 0) {
-                res.status(404).json({"message": "Usuario no encontrado"});
-            } else if (results.affectedRows > 0) {
-                res.status(200).json({"message": "Usuario actualizado correctamente"});
-            } 
-        } catch (err) {
-            res.status(500).json({"message": "Error al actualizar usuario"});
-            console.error(err);
+        const results = await UsuarioModel.update(data);
+        
+        if (results.affectedRows == 0) {
+            throw new NotFoundError("Usuario no encontrado");
         }
+        
+        return res.status(200).json({"message": "Usuario actualizado correctamente"});
     }
 
     static async delete(req, res) {
-        try {
-            const data = [req.params.id];
-            const results = await UsuarioModel.delete(data);
-            if (results.affectedRows == 0) {
-                res.status(404).json({"message": "Usuario no encontrado"});
-            }
-            else if (results.affectedRows > 0) {
-                res.status(204).send();
-            }
-        } catch (err) {
-            res.status(500).json({"message": "Error al eliminar usuario"});
-            console.error(err);
+        const data = [req.params.id];
+        const results = await UsuarioModel.delete(data);
+
+        if (results.affectedRows == 0) {
+            throw new NotFoundError("Usuario no encontrado");
         }
+
+        return res.status(204).send();
     }
 }
