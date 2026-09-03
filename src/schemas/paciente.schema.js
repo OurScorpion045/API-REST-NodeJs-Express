@@ -5,8 +5,8 @@ export const pacienteSchema = z.object({
     Nombre: z.string().min(3),
     Direccion: z.string(),
     CodigoPostal: z.string(),
-    Telefono: z.string().min(9),
+    Telefono: z.string().regex(/^\d{10}$/),
     Genero: z.enum(["H", "M"]),
-    FechaNacimiento: z.string().min(8),
+    FechaNacimiento: z.iso.date(),
     Correo: z.email()
 });
