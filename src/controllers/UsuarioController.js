@@ -1,7 +1,9 @@
 import { AppError } from "../errors/AppError.js";
 import { NotFoundError } from "../errors/NotFoundError.js";
+import { UnauthorizedError } from "../errors/UnauthorizedError.js";
 import { UsuarioModel } from "../models/UsuarioModel.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export class UsuarioController {
 
@@ -19,6 +21,41 @@ export class UsuarioController {
         }
         
         res.status(200).json(results);
+    }
+
+    static async login(req, res) {
+        const data = [req.body.Usuario];
+        const results = await UsuarioModel.getByUsername(data);
+
+        if (results.length === 0) {
+            throw new UnauthorizedError("Credenciales invalidas");
+        }
+        
+        const usuario = results[0];
+
+        const validatePassword = await bcrypt.compare(
+            req.body.Password,
+            usuario.Password
+        );
+
+        if (!validatePassword) {
+            throw new UnauthorizedError("Credenciales invalidas");
+        }
+
+        const token = jwt.sign(
+            {
+                UsuarioId: usuario.UsuarioId,
+                Usuario: usuario.Usuario
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "1h"
+            }
+        )
+
+        res.status(200).json({
+            token
+        });
     }
 
     static async insert(req, res) {
