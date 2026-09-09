@@ -4,6 +4,10 @@ import express from "express";
 
 export const usuarioRouter = express.Router();
 
+usuarioRouter.post("/login", async (req, res) => {
+    await UsuarioController.login(req, res);
+})
+
 usuarioRouter.get("/usuarios", async (req, res) => {
     await UsuarioController.getAll(req, res);
 });
