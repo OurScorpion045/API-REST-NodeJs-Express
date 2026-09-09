@@ -14,6 +14,12 @@ export class UsuarioModel {
         return rows;
     }
 
+    static async getByUsername(usuarioData) {
+        const sql = "SELECT * FROM `usuarios` WHERE `Usuario` = ?";
+        const [rows] = await pool.execute(sql, usuarioData);
+        return rows;
+    }
+
     static async insert(usuarioData) {
         const sql = "INSERT INTO `usuarios`(`Usuario`, `Password`, `Estado`) VALUES (?, ?, ?)";
         const [rows, fields] = await pool.execute(sql, usuarioData);
