@@ -20,7 +20,7 @@ export class PacienteController {
         }
     }
 
-    static async insert(req, res, next) {
+    static async insert(req, res) {
         let data = [
             req.body.DNI,
             req.body.Nombre,
