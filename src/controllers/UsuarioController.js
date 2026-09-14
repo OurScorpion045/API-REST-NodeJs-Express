@@ -39,7 +39,7 @@ export class UsuarioController {
         );
 
         if (!validatePassword) {
-            throw new UnauthorizedError("Credenciales invalidas");
+            throw new UnauthorizedError("Credenciales incorrectas");
         }
 
         const token = jwt.sign(
@@ -52,6 +52,8 @@ export class UsuarioController {
                 expiresIn: "1h"
             }
         )
+
+        const authHeader = req.headers.authorization;
 
         res.status(200).json({
             token
