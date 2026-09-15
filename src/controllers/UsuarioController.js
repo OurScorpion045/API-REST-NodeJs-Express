@@ -53,9 +53,7 @@ export class UsuarioController {
             }
         )
 
-        const authHeader = req.headers.authorization;
-
-        res.status(200).json({
+        res.status(201).json({
             token
         });
     }
@@ -66,7 +64,8 @@ export class UsuarioController {
         const data = [
             req.body.Usuario,
             hashPassword,
-            req.body.Estado
+            req.body.Estado,
+            req.body.Rol
         ];
 
         const results = await UsuarioModel.insert(data);
@@ -85,6 +84,7 @@ export class UsuarioController {
             req.body.Usuario,
             hashPassword,
             req.body.Estado,
+            req.body.Rol,
             req.params.id
         ];
 
