@@ -22,6 +22,6 @@ citasRouter.put("/citas/:id", authMiddleware, authorizationMiddleware("USER", "A
     await CitasController.update(req, res);
 });
 
-citasRouter.delete("/citas/:id", authorizationMiddleware("USER", "ADMIN"), authMiddleware, async (req, res) => {
+citasRouter.delete("/citas/:id", authMiddleware, authorizationMiddleware("USER", "ADMIN"), async (req, res) => {
     await CitasController.delete(req, res);
 });
