@@ -44,6 +44,7 @@ export class UsuarioController {
 
         const token = jwt.sign(
             {
+                UsuarioId: usuario.UsuarioId,
                 Rol: usuario.Rol
             },
             process.env.JWT_SECRET,
