@@ -35,7 +35,7 @@ export class PacienteController {
         let results = await PacienteModel.insert(data);
         
         if (results.affectedRows == 0) {
-            throw new AppError("Error al insertar paciente");
+            throw new AppError("Error al insertar paciente", 500);
         }
 
         return res.status(201).json({"message": "Paciente insertado correctamente"});
