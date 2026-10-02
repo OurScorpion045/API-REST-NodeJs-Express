@@ -14,7 +14,7 @@ export const validateUsuario = async (req, res, next) => {
     const usuarios = correos[0].map(usuario => usuario.Usuario);
 
     if (usuarios.includes(req.body.Usuario)) {
-        throw new ConflictError("Un usuario ya existente con esa direccion de correo electronico");
+        throw new ConflictError("Un usuario ya existe con esa direccion de correo electronico");
     }
 
     next();
