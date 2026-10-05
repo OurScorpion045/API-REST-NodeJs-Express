@@ -1,17 +1,15 @@
 import supertest from "supertest";
 import { app } from "../../src/app.js";
 
-const request = supertest(app);
-
-export const createToken = async () => {
+export const createToken = async (user, password) => {
+    const request = supertest(app);
     const response = await request.post("/login").send(
         {
-            Usuario: 'test@gmail.com',
-            Password: '123456'
+            Usuario: user,
+            Password: password
         }
     )
 
     let token = response.body.token;
-    console.log(token);
     return token;
 }
