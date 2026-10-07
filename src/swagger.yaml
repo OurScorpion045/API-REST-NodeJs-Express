@@ -1,0 +1,53 @@
+openapi: 3.0.3
+
+info:
+  title: Patient management API-REST
+  version: 1.0.0
+  description: API-REST developed with Node.js and Express
+
+paths:
+  /pacientes:
+    get:
+      summary: Get all the patients
+      description: Return an array of all patients storage in the database
+
+      responses:
+        "200":
+          description: Array of patients obtain correctly
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Paciente"
+
+        "401":
+          description: missing, invalid or expired token
+
+        "500":
+          description: Server Internal Error
+
+components:
+  schemas:
+    Paciente:
+      type: object
+      properties:
+        PacienteId:
+          type: integer
+        DNI:
+          type: string
+        Nombre:
+          type: string
+        Direccion:
+          type: string
+        CodigoPostal:
+          type: string
+        Telefono:
+          type: string
+        Genero:
+          type: string
+        FechaNacimiento:
+          type: string
+          format: date
+        Correo:
+          type: string
