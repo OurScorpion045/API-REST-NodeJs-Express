@@ -5,8 +5,9 @@ import { usuarioRouter } from "./routes/UsuarioRoute.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import fs from "node:fs";
 import YAML from "yaml";
+import swaggerUI from "swagger-ui-express"
 
-const file = fs.readFileSync('./swagger.yaml', 'utf8')
+const file = fs.readFileSync('./src/swagger.yaml', 'utf8')
 const swaggerDocument = YAML.parse(file);
 
 export const app = express();
