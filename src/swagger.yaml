@@ -113,6 +113,90 @@ paths:
         "401":
           description: Error en el token
 
+    get/id:
+      summary: get a cita by id
+      description: Return an array with a cita by id
+
+      responses:
+        "200":
+          description: Cita obtenida correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Cita"
+
+        "404":
+          description: "Cita no encontrada"
+
+        "401":
+          description: "Error en el token"
+
+    post:
+      summary: Insertar cita
+      description: Insertar una nueva cita en la base de Datos
+
+      responses:
+        "201":
+          description: Cita insertada correctamente
+
+        "400":
+          description: Campos obligatorios vacios
+
+        "401":
+          description: Error en el token
+
+    put:
+      summary: Actualizar cita
+      description: Actualizar una cita existente en la base de datos por su id
+
+      responses:
+        "200":
+          description: Cita actualizada correctamente
+
+        "404":
+          description: Cita no encontrada
+
+        "400":
+          description: Datos invalidos
+
+        "401":
+          description: Error en el token
+
+    delete:
+      summary: Eliminar cita
+      description: Eliminar una cita existente en la base de datos por su id
+
+      responses:
+        "204":
+          description: Cita eliminada correctamente
+
+        "404":
+          description: Cita no encontrada
+
+        "401":
+          description: Error en el token
+
+  /usuarios:
+    get:
+      summary: Obtener todos los usuarios
+      description: Obtiene un array con todos los usuarios registrados en la base de datos
+
+      responses:
+        "200":
+          description: Usuarios obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items: "#/components/schemas/Usuario"
+
+    get/id:
+    post:
+    put:
+    delete:
+
 components:
   schemas:
     Paciente:
@@ -161,7 +245,7 @@ components:
         Motivo:
           type: string
 
-    Usuarios:
+    Usuario:
       type: object
       required:
         - UsuarioId
