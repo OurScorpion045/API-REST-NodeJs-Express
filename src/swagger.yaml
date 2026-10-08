@@ -9,11 +9,11 @@ paths:
   /pacientes:
     get:
       summary: Get all the patients
-      description: Return an array of all patients storage in the database
+      description: Returns an array containing all patients stored in the database
 
       responses:
         "200":
-          description: Array of patients obtain correctly
+          description: Array of patients retrieved successfully
           content:
             application/json:
               schema:
@@ -22,15 +22,85 @@ paths:
                   $ref: "#/components/schemas/Paciente"
 
         "401":
-          description: missing, invalid or expired token
+          description: error en el token
 
         "500":
-          description: Server Internal Error
+          description: Internal Server Error
+
+    get/id:
+      summary: Get a patient by his id
+      description: Returns an array containing only the patient who belongs the id
+
+      responses:
+        "200":
+          description: Array of patient retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Paciente"
+
+        "404":
+          description: Paciente no encontrado
+
+        "401":
+          description: error en el token
+
+        "500":
+          description: Internal Server Error
+
+    post:
+      summary: Create a new patient
+      description: Insert a new patient into the patients table in the database
+
+      responses:
+        "201":
+          description: Paciente insertado correctamente
+
+        "400":
+          description: Datos invalidos
+
+        "401":
+          description: Error en el token
+
+    put:
+      summary: Update an existent patient
+      description: Update an existent patient data into the database by his id
+
+      responses:
+        "200":
+          description: Paciente actualizado correctamente
+
+        "404":
+          description: Paciente no encontrado
+
+        "400":
+          description: Datos invalidos
+
+        "401":
+          description: Error en el token
+
+    delete:
+      summary: Delete a patient
+      description: Delete a patient from the database by his id
+
+      responses:
+        "204":
+          description: Paciente eliminado correctamente
+
+        "404":
+          description: Paciente no encontrado
+
+        "401":
+          description: Error en el token
 
 components:
   schemas:
     Paciente:
       type: object
+      required:
+        - PacienteId
       properties:
         PacienteId:
           type: integer
