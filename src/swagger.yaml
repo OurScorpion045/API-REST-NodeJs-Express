@@ -95,6 +95,24 @@ paths:
         "401":
           description: Error en el token
 
+  /citas:
+    get:
+      summary: Get all the citas
+      description: Return an array of all citas stored in the database
+
+      responses:
+        "200":
+          description: Lista de citas obtenida correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Cita"
+
+        "401":
+          description: Error en el token
+
 components:
   schemas:
     Paciente:
@@ -120,6 +138,47 @@ components:
           type: string
           format: date
         Correo:
+          type: string
+
+    Cita:
+      type: object
+      required:
+        - CitaId
+      properties:
+        CitaId:
+          type: integer
+        PacienteId:
+          type: string
+        Fecha:
+          type: string
+          format: date
+        HoraInicio:
+          type: string
+        HoraFin:
+          type: string
+        Estado:
+          type: string
+        Motivo:
+          type: string
+
+    Usuarios:
+      type: object
+      required:
+        - UsuarioId
+        - Usuario
+        - Password
+        - Estado
+        - Rol
+      properties:
+        UsuarioId:
+          type: integer
+        Usuario:
+          type: string
+        Password:
+          type: string
+        Estado:
+          type: string
+        Rol:
           type: string
 
   securitySchemes:
