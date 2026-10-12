@@ -192,10 +192,90 @@ paths:
                 type: array
                 items: "#/components/schemas/Usuario"
 
+        "401":
+          description: Error en el token
+
+        "403":
+          description: Acceso denegado
+
     get/id:
+      summary: Obtener usuario por id
+      description: Obtiene un array con la informacion del usuario en la base de datos a la cual pertenece el id
+
+      responses:
+        "200":
+          description: Usuario obtenido correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items: "#/components/schemas/Usuario"
+
+        "404":
+          description: Usuario no encontrado
+
+        "401":
+          description: Error en el token
+
+        "403":
+          description: Acceso denegado
+
     post:
+      summary: Insertar un nuevo usuario
+      description: Inserta un nuevo usuario a la base de datos
+
+      responses:
+        "201":
+          description: Usuario insertado correctamente
+
+        "400":
+          description: Campos obligatorios vacios
+
+        "401":
+          description: Error en el token
+
+        "403":
+          description: Acceso denegado
+
+        "409":
+          description: Un usuario ya existe con esa direccion de correo electronico
+
     put:
+      summary: Actualiza un usuario existente
+      description: Actualiza los datos de un usurio ya existente en la base de datos por su id
+
+      responses:
+        "200":
+          description: Usuario actualizado correctamente
+
+        "404":
+          description: Usuario no encontrado
+
+        "400":
+          description: Campos obligatorios vacios
+
+        "401":
+          description: Error en el token
+
+        "403":
+          description: Acceso denegado
+
     delete:
+      summary: Elimina un usuario existente
+      description: Elimina a un usuario existente en la base de datos mediante su id
+
+      responses:
+        "204":
+          description: Usuario eliminado correctamente
+
+        "404":
+          description: Usuario no encontrado
+
+        "401":
+          description: Error en el token
+
+        "403":
+          description: Acceso denegado
 
 components:
   schemas:
