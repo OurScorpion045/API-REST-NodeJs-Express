@@ -22,47 +22,30 @@ paths:
                   $ref: "#/components/schemas/Paciente"
 
         "401":
-          description: error en el token
+          $ref: "#/components/responses/UnauthorizedError"
 
         "500":
-          description: Internal Server Error
-
-    get/id:
-      summary: Get a patient by his id
-      description: Returns an array containing only the patient who belongs the id
-
-      responses:
-        "200":
-          description: Array of patient retrieved successfully
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Paciente"
-
-        "404":
-          description: Paciente no encontrado
-
-        "401":
-          description: error en el token
-
-        "500":
-          description: Internal Server Error
+          $ref: "#/components/responses/InternalServerError"
 
     post:
       summary: Create a new patient
       description: Insert a new patient into the patients table in the database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Paciente"
 
       responses:
         "201":
           description: Paciente insertado correctamente
 
         "400":
-          description: Datos invalidos
+          $ref: "#/components/responses/ValidationError"
 
         "401":
-          description: Error en el token
+          $ref: "#/components/responses/UnauthorizedError"
 
     put:
       summary: Update an existent patient
@@ -73,13 +56,15 @@ paths:
           description: Paciente actualizado correctamente
 
         "404":
-          description: Paciente no encontrado
+          $ref: "#/components/responses/NotFoundError"
+          example:
+            error: "Paciente no encontrado"
 
         "400":
-          description: Datos invalidos
+          $ref: "#/components/responses/ValidationError"
 
         "401":
-          description: Error en el token
+          $ref: "#/components/responses/UnauthorizedError"
 
     delete:
       summary: Delete a patient
@@ -90,10 +75,12 @@ paths:
           description: Paciente eliminado correctamente
 
         "404":
-          description: Paciente no encontrado
+          $ref: "#/components/responses/NotFoundError"
+          example:
+            error: "Paciente no encontrado"
 
         "401":
-          description: Error en el token
+          $ref: "#/components/responses/UnauthorizedError"
 
   /citas:
     get:
@@ -111,27 +98,7 @@ paths:
                   $ref: "#/components/schemas/Cita"
 
         "401":
-          description: Error en el token
-
-    get/id:
-      summary: get a cita by id
-      description: Return an array with a cita by id
-
-      responses:
-        "200":
-          description: Cita obtenida correctamente
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Cita"
-
-        "404":
-          description: "Cita no encontrada"
-
-        "401":
-          description: "Error en el token"
+          $ref: "#/components/responses/UnauthorizedError"
 
     post:
       summary: Insertar cita
@@ -142,10 +109,10 @@ paths:
           description: Cita insertada correctamente
 
         "400":
-          description: Campos obligatorios vacios
+          $ref: "#/components/responses/ValidationError"
 
         "401":
-          description: Error en el token
+          $ref: "#/components/responses/UnauthorizedError"
 
     put:
       summary: Actualizar cita
@@ -156,13 +123,15 @@ paths:
           description: Cita actualizada correctamente
 
         "404":
-          description: Cita no encontrada
+          $ref: "#/components/responses/NotFoundError"
+          example:
+            error: Cita no encontrada
 
         "400":
-          description: Datos invalidos
+          $ref: "#/components/responses/ValidationError"
 
         "401":
-          description: Error en el token
+          $ref: "#/components/responses/UnauthorizedError"
 
     delete:
       summary: Eliminar cita
@@ -173,12 +142,14 @@ paths:
           description: Cita eliminada correctamente
 
         "404":
-          description: Cita no encontrada
+          $ref: "#/components/responses/NotFoundError"
+          example:
+            error: Cita no encontrada
 
         "401":
-          description: Error en el token
+          $ref: "#/components/responses/UnauthorizedError"
 
-  /usuarios:
+  /usuarios/:
     get:
       summary: Obtener todos los usuarios
       description: Obtiene un array con todos los usuarios registrados en la base de datos
@@ -190,35 +161,14 @@ paths:
             application/json:
               schema:
                 type: array
-                items: "#/components/schemas/Usuario"
+                items:
+                  $ref: "#/components/schemas/Usuario"
 
         "401":
-          description: Error en el token
+          $ref: "#/components/responses/UnauthorizedError"
 
         "403":
-          description: Acceso denegado
-
-    get/id:
-      summary: Obtener usuario por id
-      description: Obtiene un array con la informacion del usuario en la base de datos a la cual pertenece el id
-
-      responses:
-        "200":
-          description: Usuario obtenido correctamente
-          content:
-            application/json:
-              schema:
-                type: array
-                items: "#/components/schemas/Usuario"
-
-        "404":
-          description: Usuario no encontrado
-
-        "401":
-          description: Error en el token
-
-        "403":
-          description: Acceso denegado
+          $ref: "#/components/responses/ForbbidenError"
 
     post:
       summary: Insertar un nuevo usuario
@@ -229,16 +179,16 @@ paths:
           description: Usuario insertado correctamente
 
         "400":
-          description: Campos obligatorios vacios
+          $ref: "#/components/responses/ValidationError"
 
         "401":
-          description: Error en el token
+          $ref: "#/components/responses/UnauthorizedError"
 
         "403":
-          description: Acceso denegado
+          $ref: "#/components/responses/ForbbidenError"
 
         "409":
-          description: Un usuario ya existe con esa direccion de correo electronico
+          $ref: "#/components/responses/ConflictError"
 
     put:
       summary: Actualiza un usuario existente
@@ -249,16 +199,18 @@ paths:
           description: Usuario actualizado correctamente
 
         "404":
-          description: Usuario no encontrado
+          $ref: "#/components/responses/NotFoundError"
+          example:
+            error: Usuario no encontrado
 
         "400":
-          description: Campos obligatorios vacios
+          $ref: "#/components/responses/ValidationError"
 
         "401":
-          description: Error en el token
+          $ref: "#/components/responses/UnauthorizedError"
 
         "403":
-          description: Acceso denegado
+          $ref: "#/components/responses/ForbbidenError"
 
     delete:
       summary: Elimina un usuario existente
@@ -269,13 +221,15 @@ paths:
           description: Usuario eliminado correctamente
 
         "404":
-          description: Usuario no encontrado
+          $ref: "#/components/responses/NotFoundError"
+          example:
+            error: Usuario no encontrado
 
         "401":
-          description: Error en el token
+          $ref: "#/components/responses/UnauthorizedError"
 
         "403":
-          description: Acceso denegado
+          $ref: "#/components/responses/ForbbidenError"
 
 components:
   schemas:
@@ -344,6 +298,69 @@ components:
           type: string
         Rol:
           type: string
+
+    Error:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Descripcion del error ocurrido
+          example: Internal Server Error
+
+  responses:
+    UnauthorizedError:
+      description: El token JWT falta, es invalido o ha expirado
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: Error en el token
+
+    ForbbidenError:
+      description: El usuario no tiene autorizacion para ejecutar el endpoint
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: Acceso denegado
+
+    NotFoundError:
+      description: No se encontro el recurso solicitado
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    ConflictError:
+      description: Ya existe un usuario asociado a la direccion de correo recibida
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: Un usuario ya existe con esa direccion de correo electronico
+
+    ValidationError:
+      description: Se ingreso un dato invalido al crear o actualizar un recurso
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: Datos invalidos
+
+    InternalServerError:
+      description: Se disparo un error no esperado en el servidor
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: Internal Server Error
 
   securitySchemes:
     bearerAuth:
