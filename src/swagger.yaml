@@ -6,7 +6,14 @@ info:
   description: API-REST developed with Node.js and Express
 
 paths:
-  /pacientes/id:
+  /pacientes/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+
     get:
       summary: Obtener paciente por id
       description: Devuelve un array con la informacion del paciente al que pertenece el id
@@ -97,7 +104,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Paciente"
+              $ref: "#/components/schemas/PacienteInput"
 
       responses:
         "201":
@@ -112,7 +119,14 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
-  /citas/id:
+  /citas/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+
     get:
       summary: Obtener cita por id
       description: Devuelve un array con la informacion de la cita a la que pertenece el id
@@ -140,6 +154,12 @@ paths:
       responses:
         "200":
           description: Cita actualizada correctamente
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/CitaInput"
 
         "404":
           $ref: "#/components/responses/NotFoundError"
@@ -198,6 +218,12 @@ paths:
     post:
       summary: Insertar cita
       description: Insertar una nueva cita en la base de Datos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CitaInput"
 
       responses:
         "201":
@@ -212,7 +238,14 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
-  /usuarios/id:
+  /usuarios/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+
     get:
       summary: Obtener usuario por id
       description: Obtiene un array con la informacion de todos los usuarios guardados en la base de datos
@@ -239,6 +272,12 @@ paths:
     put:
       summary: Actualiza un usuario existente
       description: Actualiza los datos de un usurio ya existente en la base de datos por su id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UsuarioInput"
 
       responses:
         "200":
@@ -310,6 +349,12 @@ paths:
     post:
       summary: Insertar un nuevo usuario
       description: Inserta un nuevo usuario a la base de datos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UsuarioInput"
 
       responses:
         "201":
@@ -357,6 +402,36 @@ components:
         Correo:
           type: string
 
+    PacienteInput:
+      type: object
+      required:
+        - DNI
+        - Nombre
+        - Direccion
+        - CodigoPostal
+        - Telefono
+        - Genero
+        - FechaNacimiento
+        - Correo
+      properties:
+        DNI:
+          type: string
+        Nombre:
+          type: string
+        Direccion:
+          type: string
+        CodigoPostal:
+          type: string
+        Telefono:
+          type: string
+        Genero:
+          type: string
+        FechaNacimiento:
+          type: string
+          format: date
+        Correo:
+          type: string
+
     Cita:
       type: object
       required:
@@ -378,17 +453,52 @@ components:
         Motivo:
           type: string
 
+    CitaInput:
+      type: object
+      required:
+        - PacienteId
+        - Fecha
+        - HoraInicio
+        - HoraFin
+        - Estado
+        - Motivo
+      properties:
+        PacienteId:
+          type: string
+        Fecha:
+          type: string
+          format: date
+        HoraInicio:
+          type: string
+        HoraFin:
+          type: string
+        Estado:
+          type: string
+        Motivo:
+          type: string
+
     Usuario:
       type: object
       required:
         - UsuarioId
+      properties:
+        UsuarioId:
+          type: integer
+        Usuario:
+          type: string
+        Estado:
+          type: string
+        Rol:
+          type: string
+
+    UsuarioInput:
+      type: object
+      required:
         - Usuario
         - Password
         - Estado
         - Rol
       properties:
-        UsuarioId:
-          type: integer
         Usuario:
           type: string
         Password:
