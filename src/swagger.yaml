@@ -6,10 +6,72 @@ info:
   description: API-REST developed with Node.js and Express
 
 paths:
+  /pacientes/id:
+    get:
+      summary: Obtener paciente por id
+      description: Devuelve un array con la informacion del paciente al que pertenece el id
+
+      responses:
+        "200":
+          description: Paciente obtenido correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Paciente"
+
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+    put:
+      summary: Update an existent patient
+      description: Update an existent patient data into the database by his id
+
+      responses:
+        "200":
+          description: Paciente actualizado correctamente
+
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+          example:
+            error: "Paciente no encontrado"
+
+        "400":
+          $ref: "#/components/responses/ValidationError"
+
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+    delete:
+      summary: Delete a patient
+      description: Delete a patient from the database by his id
+
+      responses:
+        "204":
+          description: Paciente eliminado correctamente
+
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+          example:
+            error: "Paciente no encontrado"
+
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
   /pacientes:
     get:
-      summary: Get all the patients
-      description: Returns an array containing all patients stored in the database
+      summary: Obtener todos los pacientes
+      description: Devuelve un array con la informacion de todos los pacientes guardados en la base de datos
 
       responses:
         "200":
@@ -47,49 +109,17 @@ paths:
         "401":
           $ref: "#/components/responses/UnauthorizedError"
 
-    put:
-      summary: Update an existent patient
-      description: Update an existent patient data into the database by his id
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
-      responses:
-        "200":
-          description: Paciente actualizado correctamente
-
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-          example:
-            error: "Paciente no encontrado"
-
-        "400":
-          $ref: "#/components/responses/ValidationError"
-
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-
-    delete:
-      summary: Delete a patient
-      description: Delete a patient from the database by his id
-
-      responses:
-        "204":
-          description: Paciente eliminado correctamente
-
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-          example:
-            error: "Paciente no encontrado"
-
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-
-  /citas:
+  /citas/id:
     get:
-      summary: Get all the citas
-      description: Return an array of all citas stored in the database
+      summary: Obtener cita por id
+      description: Devuelve un array con la informacion de la cita a la que pertenece el id
 
       responses:
         "200":
-          description: Lista de citas obtenida correctamente
+          description: Cita obtenida correctamente
           content:
             application/json:
               schema:
@@ -100,19 +130,8 @@ paths:
         "401":
           $ref: "#/components/responses/UnauthorizedError"
 
-    post:
-      summary: Insertar cita
-      description: Insertar una nueva cita en la base de Datos
-
-      responses:
-        "201":
-          description: Cita insertada correctamente
-
-        "400":
-          $ref: "#/components/responses/ValidationError"
-
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
     put:
       summary: Actualizar cita
@@ -133,6 +152,9 @@ paths:
         "401":
           $ref: "#/components/responses/UnauthorizedError"
 
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
     delete:
       summary: Eliminar cita
       description: Eliminar una cita existente en la base de datos por su id
@@ -149,14 +171,55 @@ paths:
         "401":
           $ref: "#/components/responses/UnauthorizedError"
 
-  /usuarios/:
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /citas:
     get:
-      summary: Obtener todos los usuarios
-      description: Obtiene un array con todos los usuarios registrados en la base de datos
+      summary: Obtener todas las citas
+      description: Devuelve un array con la informacion de todas las citas guardadas en la base de datos
 
       responses:
         "200":
-          description: Usuarios obtenidos correctamente
+          description: Lista de citas obtenida correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Cita"
+
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+    post:
+      summary: Insertar cita
+      description: Insertar una nueva cita en la base de Datos
+
+      responses:
+        "201":
+          description: Cita insertada correctamente
+
+        "400":
+          $ref: "#/components/responses/ValidationError"
+
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /usuarios/id:
+    get:
+      summary: Obtener usuario por id
+      description: Obtiene un array con la informacion de todos los usuarios guardados en la base de datos
+
+      responses:
+        "200":
+          description: Usuario obtenido correctamente
           content:
             application/json:
               schema:
@@ -170,25 +233,8 @@ paths:
         "403":
           $ref: "#/components/responses/ForbbidenError"
 
-    post:
-      summary: Insertar un nuevo usuario
-      description: Inserta un nuevo usuario a la base de datos
-
-      responses:
-        "201":
-          description: Usuario insertado correctamente
-
-        "400":
-          $ref: "#/components/responses/ValidationError"
-
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-
-        "403":
-          $ref: "#/components/responses/ForbbidenError"
-
-        "409":
-          $ref: "#/components/responses/ConflictError"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
     put:
       summary: Actualiza un usuario existente
@@ -212,6 +258,9 @@ paths:
         "403":
           $ref: "#/components/responses/ForbbidenError"
 
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
     delete:
       summary: Elimina un usuario existente
       description: Elimina a un usuario existente en la base de datos mediante su id
@@ -230,6 +279,56 @@ paths:
 
         "403":
           $ref: "#/components/responses/ForbbidenError"
+
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /usuarios:
+    get:
+      summary: Obtener todos los usuarios
+      description: Obtiene un array con todos los usuarios registrados en la base de datos
+
+      responses:
+        "200":
+          description: Usuarios obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Usuario"
+
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+
+        "403":
+          $ref: "#/components/responses/ForbbidenError"
+
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+    post:
+      summary: Insertar un nuevo usuario
+      description: Inserta un nuevo usuario a la base de datos
+
+      responses:
+        "201":
+          description: Usuario insertado correctamente
+
+        "400":
+          $ref: "#/components/responses/ValidationError"
+
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+
+        "403":
+          $ref: "#/components/responses/ForbbidenError"
+
+        "409":
+          $ref: "#/components/responses/ConflictError"
+
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
 components:
   schemas:
