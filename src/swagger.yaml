@@ -4,6 +4,13 @@ info:
   title: Patient management API-REST
   version: 1.0.0
   description: API-REST developed with Node.js and Express
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://127.0.0.1:3000
+    description: Servidor local de desarrollo
 
 paths:
   /pacientes/{id}:
@@ -15,6 +22,7 @@ paths:
           type: integer
 
     get:
+      operationId: obtenerPacientePorId
       summary: Obtener paciente por id
       description: Devuelve un array con la informacion del paciente al que pertenece el id
 
@@ -38,8 +46,15 @@ paths:
           $ref: "#/components/responses/InternalServerError"
 
     put:
+      operationId: actualizarPaciente
       summary: Update an existent patient
       description: Update an existent patient data into the database by his id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PacienteInput"
 
       responses:
         "200":
@@ -58,8 +73,9 @@ paths:
           $ref: "#/components/responses/InternalServerError"
 
     delete:
-      summary: Delete a patient
-      description: Delete a patient from the database by his id
+      operationId: eliminarPaciente
+      summary: Eliminar paciente
+      description: Elimina un paciente de la base de datos mediante su id
 
       responses:
         "204":
@@ -76,6 +92,7 @@ paths:
 
   /pacientes:
     get:
+      operationId: ObtenerPacientes
       summary: Obtener todos los pacientes
       description: Devuelve un array con la informacion de todos los pacientes guardados en la base de datos
 
@@ -96,8 +113,9 @@ paths:
           $ref: "#/components/responses/InternalServerError"
 
     post:
-      summary: Create a new patient
-      description: Insert a new patient into the patients table in the database
+      operationId: InsertarPacientes
+      summary: Insertar nuevo paciente
+      description: Inserta un nuevo paciente en la tabla paciente de la base de datos
       requestBody:
         required: true
         content:
@@ -127,6 +145,7 @@ paths:
           type: integer
 
     get:
+      operationId: ObtenerCitaPorId
       summary: Obtener cita por id
       description: Devuelve un array con la informacion de la cita a la que pertenece el id
 
@@ -150,18 +169,19 @@ paths:
           $ref: "#/components/responses/InternalServerError"
 
     put:
+      operationId: ActualizarCita
       summary: Actualizar cita
       description: Actualizar una cita existente en la base de datos por su id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CitaInput"
 
       responses:
         "200":
           description: Cita actualizada correctamente
-          requestBody:
-            required: true
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/CitaInput"
 
         "404":
           $ref: "#/components/responses/NotFoundError"
@@ -176,6 +196,7 @@ paths:
           $ref: "#/components/responses/InternalServerError"
 
     delete:
+      operationId: EliminarCita
       summary: Eliminar cita
       description: Eliminar una cita existente en la base de datos por su id
 
@@ -194,6 +215,7 @@ paths:
 
   /citas:
     get:
+      operationId: ObtenerCitas
       summary: Obtener todas las citas
       description: Devuelve un array con la informacion de todas las citas guardadas en la base de datos
 
@@ -214,6 +236,7 @@ paths:
           $ref: "#/components/responses/InternalServerError"
 
     post:
+      operationId: InsertarCita
       summary: Insertar cita
       description: Insertar una nueva cita en la base de Datos
       requestBody:
@@ -245,6 +268,7 @@ paths:
           type: integer
 
     get:
+      operationId: ObtenerUsuariosPorId
       summary: Obtener usuario por id
       description: Obtiene un array con la informacion de todos los usuarios guardados en la base de datos
 
@@ -268,6 +292,7 @@ paths:
           $ref: "#/components/responses/InternalServerError"
 
     put:
+      operationId: ActualizarUsuario
       summary: Actualiza un usuario existente
       description: Actualiza los datos de un usurio ya existente en la base de datos por su id
       requestBody:
@@ -297,6 +322,7 @@ paths:
           $ref: "#/components/responses/InternalServerError"
 
     delete:
+      operationId: EliminarUsuario
       summary: Elimina un usuario existente
       description: Elimina a un usuario existente en la base de datos mediante su id
 
@@ -318,6 +344,7 @@ paths:
 
   /usuarios:
     get:
+      operationId: ObtenerUsuarios
       summary: Obtener todos los usuarios
       description: Obtiene un array con todos los usuarios registrados en la base de datos
 
@@ -341,6 +368,7 @@ paths:
           $ref: "#/components/responses/InternalServerError"
 
     post:
+      operationId: InsertarUsuario
       summary: Insertar un nuevo usuario
       description: Inserta un nuevo usuario a la base de datos
       requestBody:
