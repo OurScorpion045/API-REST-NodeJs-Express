@@ -31,6 +31,9 @@ paths:
         "401":
           $ref: "#/components/responses/UnauthorizedError"
 
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+
         "500":
           $ref: "#/components/responses/InternalServerError"
 
@@ -44,8 +47,6 @@ paths:
 
         "404":
           $ref: "#/components/responses/NotFoundError"
-          example:
-            error: "Paciente no encontrado"
 
         "400":
           $ref: "#/components/responses/ValidationError"
@@ -66,8 +67,6 @@ paths:
 
         "404":
           $ref: "#/components/responses/NotFoundError"
-          example:
-            error: "Paciente no encontrado"
 
         "401":
           $ref: "#/components/responses/UnauthorizedError"
@@ -144,6 +143,9 @@ paths:
         "401":
           $ref: "#/components/responses/UnauthorizedError"
 
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+
         "500":
           $ref: "#/components/responses/InternalServerError"
 
@@ -163,8 +165,6 @@ paths:
 
         "404":
           $ref: "#/components/responses/NotFoundError"
-          example:
-            error: Cita no encontrada
 
         "400":
           $ref: "#/components/responses/ValidationError"
@@ -185,8 +185,6 @@ paths:
 
         "404":
           $ref: "#/components/responses/NotFoundError"
-          example:
-            error: Cita no encontrada
 
         "401":
           $ref: "#/components/responses/UnauthorizedError"
@@ -264,7 +262,7 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
 
         "403":
-          $ref: "#/components/responses/ForbbidenError"
+          $ref: "#/components/responses/ForbiddenError"
 
         "500":
           $ref: "#/components/responses/InternalServerError"
@@ -285,8 +283,6 @@ paths:
 
         "404":
           $ref: "#/components/responses/NotFoundError"
-          example:
-            error: Usuario no encontrado
 
         "400":
           $ref: "#/components/responses/ValidationError"
@@ -295,7 +291,7 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
 
         "403":
-          $ref: "#/components/responses/ForbbidenError"
+          $ref: "#/components/responses/ForbiddenError"
 
         "500":
           $ref: "#/components/responses/InternalServerError"
@@ -310,14 +306,12 @@ paths:
 
         "404":
           $ref: "#/components/responses/NotFoundError"
-          example:
-            error: Usuario no encontrado
 
         "401":
           $ref: "#/components/responses/UnauthorizedError"
 
         "403":
-          $ref: "#/components/responses/ForbbidenError"
+          $ref: "#/components/responses/ForbiddenError"
 
         "500":
           $ref: "#/components/responses/InternalServerError"
@@ -341,7 +335,7 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
 
         "403":
-          $ref: "#/components/responses/ForbbidenError"
+          $ref: "#/components/responses/ForbiddenError"
 
         "500":
           $ref: "#/components/responses/InternalServerError"
@@ -367,7 +361,7 @@ paths:
           $ref: "#/components/responses/UnauthorizedError"
 
         "403":
-          $ref: "#/components/responses/ForbbidenError"
+          $ref: "#/components/responses/ForbiddenError"
 
         "409":
           $ref: "#/components/responses/ConflictError"
@@ -528,7 +522,7 @@ components:
           example:
             error: Error en el token
 
-    ForbbidenError:
+    ForbiddenError:
       description: El usuario no tiene autorizacion para ejecutar el endpoint
       content:
         application/json:
@@ -543,6 +537,8 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/Error"
+          example:
+            error: Recurso no encontrado
 
     ConflictError:
       description: Ya existe un usuario asociado a la direccion de correo recibida
