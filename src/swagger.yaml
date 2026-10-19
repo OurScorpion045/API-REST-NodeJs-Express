@@ -138,6 +138,12 @@ paths:
       responses:
         "201":
           description: Paciente insertado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+              example:
+                message: Paciente insertado correctamente
 
         "400":
           $ref: "#/components/responses/ValidationError"
@@ -276,6 +282,12 @@ paths:
       responses:
         "201":
           description: Cita insertada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+              example:
+                message: Cita insertada correctamente
 
         "400":
           $ref: "#/components/responses/ValidationError"
@@ -414,6 +426,12 @@ paths:
       responses:
         "201":
           description: Usuario insertado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+              example:
+                message: Usuario insertado correctamente
 
         "400":
           $ref: "#/components/responses/ValidationError"
@@ -429,6 +447,47 @@ paths:
 
         "500":
           $ref: "#/components/responses/InternalServerError"
+
+    login:
+      opetationId: LoginUsuario
+      summary: Logea a un usuario
+      description: Crea un Bearer JWT para autenticar a un usuario existente en la base de datos
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Usuario
+                - Password
+              properties:
+                Usuario:
+                  type: string
+                Password:
+                  type: string
+                  format: Password
+
+      responses:
+        "201":
+          description: Creacion del JWT exitoso
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - token
+                properties:
+                  token:
+                    type: string
+                    description: Token JWT
+
+        "401":
+          $ref: "#components/responses/UnauthorizedError"
+
+        "500":
+          $ref: "#components/responses/InternalServerError"
 
 components:
   schemas:
@@ -473,19 +532,24 @@ components:
           type: string
         Nombre:
           type: string
+          minLength: 3
         Direccion:
           type: string
         CodigoPostal:
           type: string
         Telefono:
           type: string
+          pattern: '^\d{10}$'
+          description: Numero telefonico de exactamente 10 digitos
         Genero:
           type: string
+          enum: [H, M]
         FechaNacimiento:
           type: string
           format: date
         Correo:
           type: string
+          format: email
 
     Cita:
       type: object
@@ -525,10 +589,13 @@ components:
           format: date
         HoraInicio:
           type: string
+          minLength: 8
         HoraFin:
           type: string
+          minLength: 8
         Estado:
           type: string
+          enum: [Confirmada, En espera]
         Motivo:
           type: string
 
@@ -552,14 +619,17 @@ components:
         - Usuario
         - Password
         - Estado
-        - Rol
       properties:
         Usuario:
           type: string
+          format: email
         Password:
           type: string
+          format: password
+          minLength: 6
         Estado:
           type: string
+          enum: [Inactivo, Activo]
         Rol:
           type: string
 
@@ -572,6 +642,14 @@ components:
           type: string
           description: Descripcion del error ocurrido
           example: Internal Server Error
+
+    MessageResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
 
   responses:
     UnauthorizedError:
