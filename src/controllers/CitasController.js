@@ -1,5 +1,6 @@
 import { CitasModel } from "../models/CitasModel.js";
 import { NotFoundError } from "../errors/NotFoundError.js";
+import { AppError } from "../errors/AppError.js";
 
 export class CitasController {
 
@@ -30,7 +31,7 @@ export class CitasController {
         const results = await CitasModel.insert(data);
         
         if (results.affectedRows <= 0) {
-            throw new AppError("Error al insertar cita", 500);
+            throw new AppError("Internal Server Error", 500);
         }
 
         return res.status(201).json({"message": "Cita insertada correctamente"});
