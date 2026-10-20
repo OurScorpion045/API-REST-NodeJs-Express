@@ -13,7 +13,7 @@ export const validateUsuario = async (req, res, next) => {
     const correos = await pool.query("SELECT Usuario FROM usuarios");
     const usuarios = correos[0].map(usuario => usuario.Usuario);
 
-    if (usuarios.includes(req.body.Usuario)) {
+    if (usuarios.includes(req.body.Usuario) && req.method == 'POST') {
         throw new ConflictError("Un usuario ya existe con esa direccion de correo electronico");
     }
 
