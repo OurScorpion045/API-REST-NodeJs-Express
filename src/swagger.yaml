@@ -448,7 +448,8 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
-    login:
+  /login:
+    post:
       opetationId: LoginUsuario
       summary: Logea a un usuario
       description: Crea un Bearer JWT para autenticar a un usuario existente en la base de datos
