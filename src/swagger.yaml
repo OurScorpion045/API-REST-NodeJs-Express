@@ -450,7 +450,7 @@ paths:
 
   /login:
     post:
-      opetationId: LoginUsuario
+      operationId: LoginUsuario
       summary: Logea a un usuario
       description: Crea un Bearer JWT para autenticar a un usuario existente en la base de datos
       security: []
@@ -485,10 +485,10 @@ paths:
                     description: Token JWT
 
         "401":
-          $ref: "#components/responses/UnauthorizedError"
+          $ref: "#/components/responses/UnauthorizedError"
 
         "500":
-          $ref: "#components/responses/InternalServerError"
+          $ref: "#/components/responses/InternalServerError"
 
 components:
   schemas:
