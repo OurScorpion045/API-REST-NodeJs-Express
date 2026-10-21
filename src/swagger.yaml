@@ -468,7 +468,7 @@ paths:
                   type: string
                 Password:
                   type: string
-                  format: Password
+                  format: password
 
       responses:
         "201":
