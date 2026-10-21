@@ -11,6 +11,7 @@ const file = fs.readFileSync('./src/swagger.yaml', 'utf8')
 const swaggerDocument = YAML.parse(file);
 
 export const app = express();
+app.disable('x-powered-by');
 app.use(express.json());
 app.use(pacientesRouter);
 app.use(citasRouter);
