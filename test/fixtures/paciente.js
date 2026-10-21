@@ -3,7 +3,7 @@ export const paciente = {
     Nombre: "Martin Lopez",
     Direccion: "Calle de pruebas",
     CodigoPostal: "20012",
-    Telefono: "623281567",
+    Telefono: "6232815670",
     Genero: "H",
     FechaNacimiento: "1987-11-30",
     Correo: "Paciente@gmail.com"
