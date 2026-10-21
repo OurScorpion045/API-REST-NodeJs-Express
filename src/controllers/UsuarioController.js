@@ -90,7 +90,7 @@ export class UsuarioController {
         ];
 
         const results = await UsuarioModel.update(data);
-        const [rows, fields] = await pool.execute(`SELECT EXISTS (SELECT 1 FROM usuarios WHERE UsuarioId = ?) AS existe`, [req.params.id])
+        const [rows] = await pool.execute(`SELECT EXISTS (SELECT 1 FROM usuarios WHERE UsuarioId = ?) AS existe`, [req.params.id])
         
         if (results.affectedRows == 0 && rows[0].existe == 1) {
             return res.status(200).json({"message": "Sin cambios realizados"});
