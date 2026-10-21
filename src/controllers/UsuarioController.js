@@ -2,6 +2,7 @@ import { AppError } from "../errors/AppError.js";
 import { NotFoundError } from "../errors/NotFoundError.js";
 import { UnauthorizedError } from "../errors/UnauthorizedError.js";
 import { UsuarioModel } from "../models/UsuarioModel.js";
+import { pool } from "../config/Database.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -89,8 +90,11 @@ export class UsuarioController {
         ];
 
         const results = await UsuarioModel.update(data);
+        const [rows, fields] = await pool.execute(`SELECT EXISTS (SELECT 1 FROM usuarios WHERE UsuarioId = ?) AS existe`, [req.params.id])
         
-        if (results.affectedRows == 0) {
+        if (results.affectedRows == 0 && rows[0].existe == 1) {
+            return res.status(200).json({"message": "Sin cambios realizados"});
+        } else if (results.affectedRows == 0 && rows[0].existe == 0) {
             throw new NotFoundError("Usuario no encontrado");
         }
         
