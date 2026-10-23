@@ -5,7 +5,6 @@ export const usuarioJson = {
     Password: "usuario2",
     Estado: "Inactivo",
     Rol: "USER"
-    
 };
 
 export const usuarioJsonRepeated = {
