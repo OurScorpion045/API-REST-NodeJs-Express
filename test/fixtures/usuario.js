@@ -45,5 +45,4 @@ export const usuarioJWTInvalid = {
 }
 
 const passwordHash = bcrypt.hashSync('usuario1', 10);
-console.log(passwordHash);
 export const usuarioArray = ["usuario1@gmail.com", passwordHash, "Inactivo", "USER"];
