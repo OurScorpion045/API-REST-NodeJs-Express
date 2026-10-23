@@ -18,7 +18,7 @@ export const validateUsuario = async (req, res, next) => {
         throw new ConflictError("Un usuario ya existe con esa direccion de correo electronico");
     }
 
-    if (usuarios.includes(req.body.Usuario) && userActual[0] != req.body.Usuario && req.method == 'PUT') {
+    if (usuarios.includes(req.body.Usuario) && userActual[0]?.Usuario != req.body.Usuario && req.method == 'PUT') {
         throw new ConflictError("Un usuario ya existe con esa direccion de correo electronico")
     }
 
