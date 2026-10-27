@@ -8,9 +8,18 @@ import YAML from "yaml";
 import swaggerUI from "swagger-ui-express"
 import helmet from "helmet";
 import cors from "cors";
+import { rateLimit } from 'express-rate-limit';
 
 const file = fs.readFileSync('./src/swagger.yaml', 'utf8')
 const swaggerDocument = YAML.parse(file);
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 100,
+    standardHeaders: 'draft-8',
+    legacyHeaders: false,
+    ipv6Subnet: 56
+})
 
 export const app = express();
 app.disable('x-powered-by');
@@ -21,6 +30,7 @@ app.use(pacientesRouter);
 app.use(citasRouter);
 app.use(usuarioRouter);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument))
+app.use(limiter);
 
 app.use(errorHandler);
 
