@@ -26,6 +26,8 @@ const limiter = rateLimit({
 })
 
 export const app = express();
+
+app.use(limiter);
 app.disable('x-powered-by');
 app.use(cors({origin: "http://localhost:5173"}));
 app.use(helmet());
@@ -34,7 +36,6 @@ app.use(pacientesRouter);
 app.use(citasRouter);
 app.use(usuarioRouter);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument))
-app.use(limiter);
 
 app.use(errorHandler);
 
