@@ -9,13 +9,17 @@ import swaggerUI from "swagger-ui-express"
 import helmet from "helmet";
 import cors from "cors";
 import { rateLimit } from 'express-rate-limit';
+import { TooManyRequest } from "./errors/TooManyRequest.js";
 
 const file = fs.readFileSync('./src/swagger.yaml', 'utf8')
 const swaggerDocument = YAML.parse(file);
 
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    limit: 100,
+    windowMs: 60 * 60 * 1000,
+    limit: 1000,
+    handler: () => {
+        throw new TooManyRequest("Too many requests");
+    },
     standardHeaders: 'draft-8',
     legacyHeaders: false,
     ipv6Subnet: 56
