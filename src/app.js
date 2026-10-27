@@ -17,8 +17,8 @@ const swaggerDocument = YAML.parse(file);
 const limiter = rateLimit({
     windowMs: 60 * 60 * 1000,
     limit: 1000,
-    handler: () => {
-        throw new TooManyRequest("Too many requests");
+    handler: (req, res, next) => {
+        next(new TooManyRequest("Too many requests"));
     },
     standardHeaders: 'draft-8',
     legacyHeaders: false,
