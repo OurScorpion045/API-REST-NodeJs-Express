@@ -2,11 +2,12 @@ import { UsuarioController } from "../controllers/UsuarioController.js";
 import { validateUsuario } from "../middleware/validation/validateUsuario.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 import { authorizationMiddleware } from "../middleware/authorizationMiddleware.js"
+import { rateLimiter } from "../middleware/rateLimiter.js";
 import express from "express";
 
 export const usuarioRouter = express.Router();
 
-usuarioRouter.post("/login", async (req, res) => {
+usuarioRouter.post("/login", rateLimiter(5), async (req, res) => {
     await UsuarioController.login(req, res);
 })
 
