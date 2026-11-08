@@ -32,7 +32,6 @@ app.disable('x-powered-by');
 app.use(cors({origin: "http://localhost:5173"}));
 app.use(helmet());
 app.use(limiter);
-//app.use(rateLimiter);
 app.use(express.json({ limit: '100kb' }));
 app.use(pacientesRouter);
 app.use(citasRouter);
