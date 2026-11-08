@@ -3,7 +3,6 @@ import { pacientesRouter } from "./routes/PacienteRoute.js";
 import { citasRouter } from "./routes/CitasRoute.js";
 import { usuarioRouter } from "./routes/UsuarioRoute.js";
 import { errorHandler } from "./middleware/errorHandler.js";
-import { rateLimiter } from "./middleware/rateLimiter.js";
 import fs from "node:fs";
 import YAML from "yaml";
 import swaggerUI from "swagger-ui-express"
