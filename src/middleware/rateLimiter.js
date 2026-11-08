@@ -3,7 +3,7 @@ import { TooManyRequest } from '../errors/TooManyRequest.js';
 
 export const rateLimiter = (attemptsLimit) => {
     return rateLimit({
-        windowMs: 60 * 60 * 1000,
+        windowMs: 15 * 60 * 1000,
         limit: attemptsLimit,
         handler: (req, res, next) => {
             next(new TooManyRequest("Too many requests"))
