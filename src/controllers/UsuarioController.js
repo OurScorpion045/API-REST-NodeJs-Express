@@ -31,8 +31,12 @@ export class UsuarioController {
         if (results.length === 0) {
             throw new UnauthorizedError("Credenciales invalidas");
         }
-        
+
         const usuario = results[0];
+
+        if (usuario.Estado === "Inactivo") {
+            throw new UnauthorizedError("Usuario inactivo");
+        }
 
         const validatePassword = await bcrypt.compare(
             req.body.Password,
