@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
 
 export const usuarioJson = {
-    Usuario: "usuario2@gmail.com",
-    Password: "usuario2",
+    Usuario: "usuario3@gmail.com",
+    Password: "usuario3",
     Estado: "Inactivo",
     Rol: "USER"
 };
@@ -40,8 +40,14 @@ export const usuarioJWTIncorrect = {
 
 export const usuarioJWTInvalid = {
     Usuario: "test#mail.mx",
-    Password: "123456"
+    Password: "123"
+}
+
+export const usuarioJWTInactive = {
+    Usuario: "usuario2@gmail.com",
+    Password: "usuario1"
 }
 
 const passwordHash = bcrypt.hashSync('usuario1', 10);
-export const usuarioArray = ["usuario1@gmail.com", passwordHash, "Inactivo", "USER"];
+export const usuarioArray = ["usuario1@gmail.com", passwordHash, "Activo", "USER"];
+export const usuarioInactiveArray = ["usuario2@gmail.com", passwordHash, "Inactivo", "USER"]
