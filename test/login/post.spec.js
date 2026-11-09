@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 import { app } from '../../src/app.js';
-import { usuarioJWTCorrect, usuarioJWTIncorrect, usuarioJWTInvalid } from '../fixtures/usuario';
+import { usuarioJWTCorrect, usuarioJWTIncorrect, usuarioJWTInvalid, usuarioJWTInactive } from '../fixtures/usuario';
 import { closeConnection } from '../helpers/closeConnection.js'; 
 import { resetUsuarios } from '../helpers/resetUsuarios.js';
 
@@ -26,9 +26,16 @@ describe('POST /login', () => {
         expect(response.body.error).toBe("Credenciales incorrectas");
     })
 
-    test('Should return a 401 status code and a JSON message which says "Credenciales invalidas"', async () => {
-        const response = await request.post('/login').send(usuarioJWTInvalid);
+    test('Should return a 401 status code and a JSON message which says "Usuario inactivo"', async () => {
+        const response = await request.post('/login').send(usuarioJWTInactive);
         expect(response.statusCode).toBe(401);
+        expect(response.type).toMatch(/json/);
+        expect(response.body.error).toBe("Usuario inactivo");
+    })
+
+    test('Should return a 400 status code and a JSON message which says "Credenciales invalidas"', async () => {
+        const response = await request.post('/login').send(usuarioJWTInvalid);
+        expect(response.statusCode).toBe(400);
         expect(response.type).toMatch(/json/);
         expect(response.body.error).toBe("Credenciales invalidas");
     })
