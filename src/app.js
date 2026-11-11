@@ -29,7 +29,9 @@ export const app = express();
 
 app.disable('x-powered-by');
 app.use(cors({origin: "http://localhost:5173"}));
-app.use(helmet());
+app.use(helmet({
+    strictTransportSecurity: process.env.NODE_ENV === 'production' ? undefined : false
+}));
 app.use(limiter);
 app.use(express.json({ limit: '100kb' }));
 app.use(pacientesRouter);
