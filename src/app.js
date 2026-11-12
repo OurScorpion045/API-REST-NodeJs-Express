@@ -27,6 +27,7 @@ const limiter = rateLimit({
 
 export const app = express();
 
+app.set('trust proxy', 'loopback');
 app.disable('x-powered-by');
 app.use(cors({origin: "http://localhost:5173"}));
 app.use(helmet({
